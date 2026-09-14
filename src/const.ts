@@ -50,6 +50,7 @@ export enum ErrorDescription {
   PasswordMinLength = 'Минимальная длина 3 символа',
   PasswordMaxLength = 'Максимальная длина 15 символов',
   Quest = 'Невозможно загрузить описание квеста',
+  Reservations = 'Невозможно загрузить список забронированных квестов',
 }
 
 export const QuestLevelName: Record<string, string> = {
