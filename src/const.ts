@@ -29,8 +29,12 @@ export enum QuestLevel {
 }
 
 export enum ErrorDescription {
+  Email = 'Введите валидный email',
   Login = 'Невозможно авторизоваться на сайте',
   Quests = 'Невозможно загрузить список квестов',
+  Password = 'Пароль должен содержать минимум одну букву и одну цифру',
+  PasswordMinLength = 'Минимальная длина 3 символа',
+  PasswordMaxLength = 'Максимальная длина 15 символов',
 }
 
 export const QuestLevelName: Record<string, string> = {
@@ -39,3 +43,8 @@ export const QuestLevelName: Record<string, string> = {
   [QuestLevel.Medium]: 'Средний',
   [QuestLevel.Hard]: 'Сложный',
 };
+
+export const ValidationPattern = {
+  Email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  Password: /^(?=.*[a-zA-Z])(?=.*\d)(?=.+$)/,
+} as const;

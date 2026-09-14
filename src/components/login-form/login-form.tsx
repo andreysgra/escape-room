@@ -1,12 +1,13 @@
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
-import {FormEvent} from 'react';
 import {loginUser} from '../../store/user/api-actions';
 import {getLoginStatus} from '../../store/user/selectors';
 import {useAppSelector} from '../../hooks/use-app-selector';
 import {RequestStatus} from '../../services/api/const';
 import {TUserAuth} from '../../types/user';
+import {FieldValues, SubmitHandler, useForm} from 'react-hook-form';
+import {ErrorDescription, ValidationPattern} from '../../const';
+import FieldErrorMessage from '../field-error-message/field-error-message';
 import {toast} from 'react-toastify';
-import {ErrorDescription} from '../../const';
 import {setLoginStatus} from '../../store/user/slice';
 
 function LoginForm() {
@@ -16,12 +17,19 @@ function LoginForm() {
   const isLoginPending = loginStatus === RequestStatus.Pending;
   const isLoginFailed = loginStatus === RequestStatus.Error;
 
-  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: {
+      errors,
+      isValid
+    }
+  } = useForm({mode: 'onChange'});
 
-    const formData = Object.fromEntries(new FormData(evt.currentTarget)) as TUserAuth;
+  const handleFormSubmit: SubmitHandler<FieldValues> = (data) => {
+    const {email, password} = data as TUserAuth;
 
-    dispatch(loginUser(formData));
+    dispatch(loginUser({email, password}));
   };
 
   if (isLoginFailed) {
@@ -32,7 +40,10 @@ function LoginForm() {
   }
 
   return (
-    <form className="login-form" action="#" method="post" onSubmit={handleFormSubmit}>
+    <form className="login-form" action="#" method="post" onSubmit={(evt) => {
+      handleSubmit(handleFormSubmit)(evt);
+    }}
+    >
       <div className="login-form__inner-wrapper">
         <h1 className="title title--size-s login-form__title">Вход</h1>
         <div className="login-form__inputs">
@@ -43,10 +54,16 @@ function LoginForm() {
             <input
               type="email"
               id="email"
-              name="email"
               placeholder="Адрес электронной почты"
-              required
+              {...register(
+                'email',
+                {
+                  required: true,
+                  pattern: ValidationPattern.Email
+                })
+              }
             />
+            {errors.email && <FieldErrorMessage message={ErrorDescription.Email} />}
           </div>
           <div className="custom-input login-form__input">
             <label className="custom-input__label" htmlFor="password">
@@ -55,13 +72,32 @@ function LoginForm() {
             <input
               type="password"
               id="password"
-              name="password"
               placeholder="Пароль"
-              required
+              {...register(
+                'password',
+                {
+                  required: true,
+                  pattern: ValidationPattern.Password,
+                  minLength: {
+                    value: 3,
+                    message: ErrorDescription.PasswordMinLength
+                  },
+                  maxLength: {
+                    value: 15,
+                    message: ErrorDescription.PasswordMaxLength
+                  }
+                })
+              }
             />
+            {errors.password &&
+              <FieldErrorMessage message={errors.password?.message as string || ErrorDescription.Password} />}
           </div>
         </div>
-        <button className="btn btn--accent btn--general login-form__submit" type="submit" disabled={isLoginPending}>
+        <button
+          className="btn btn--accent btn--general login-form__submit"
+          type="submit"
+          disabled={isLoginPending || !isValid}
+        >
           Войти
         </button>
       </div>
@@ -69,8 +105,12 @@ function LoginForm() {
         <input
           type="checkbox"
           id="id-order-agreement"
-          name="user-agreement"
-          required
+          {...register(
+            'agreement',
+            {
+              required: true
+            }
+          )}
         />
         <span className="custom-checkbox__icon">
           <svg width={20} height={17} aria-hidden="true">
