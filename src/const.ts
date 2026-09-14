@@ -37,6 +37,11 @@ export enum QuestType {
   SciFi = 'sci-fi',
 }
 
+export enum BookingDate {
+  Today = 'today',
+  Tomorrow = 'tomorrow',
+}
+
 export enum ErrorDescription {
   Email = 'Введите валидный email',
   Login = 'Невозможно авторизоваться на сайте',
@@ -61,6 +66,11 @@ export const QuestTypeName: Record<string, string> = {
   [QuestType.Horror]: 'Ужасы',
   [QuestType.Mystic]: 'Мистика',
   [QuestType.SciFi]: 'Sci-Fi',
+};
+
+export const BookingDateName: Record<string, string> = {
+  [BookingDate.Today]: 'Сегодня',
+  [BookingDate.Tomorrow]: 'Завтра',
 };
 
 export const ValidationPattern = {
