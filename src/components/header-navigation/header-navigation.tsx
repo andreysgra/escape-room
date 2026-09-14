@@ -1,13 +1,13 @@
 import {Link, useLocation} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import classNames from 'classnames';
+import {useAppSelector} from '../../hooks/use-app-selector';
+import {getAuthorizationStatus} from '../../store/user/selectors';
+import {AuthorizationStatus} from '../../services/api/const';
 
-type HeaderNavigationProps = {
-  isAuthorized: boolean;
-}
-
-function HeaderNavigation({isAuthorized}: HeaderNavigationProps) {
+function HeaderNavigation() {
   const {pathname} = useLocation();
+  const isAuthorized = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
 
   return (
     <nav className="main-nav header__main-nav">

@@ -6,14 +6,13 @@ import {AppRoute} from '../../const';
 
 function Header() {
   const isRoot = useLocation().pathname === AppRoute.Main as string;
-  const isAuthorized = false;
 
   return (
     <header className="header">
       <div className="container container--size-l">
         <Logo isRoot={isRoot} />
-        <HeaderNavigation isAuthorized={isAuthorized} />
-        <UserNavigation isAuthorized={isAuthorized} />
+        <HeaderNavigation />
+        <UserNavigation />
       </div>
     </header>
 
