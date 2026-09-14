@@ -1,0 +1,24 @@
+.error-message {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.error-message__wrap {
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 75px;
+}
+
+.error-message__text {
+  text-align: center;
+}
+
+.error-message__title {
+  margin-bottom: 40px;
+}
+
+.error-message__description {
+  font-size: 20px;
+  line-height: 26px;
+}
