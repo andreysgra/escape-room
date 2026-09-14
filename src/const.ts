@@ -29,6 +29,7 @@ export enum QuestLevel {
 }
 
 export enum ErrorDescription {
+  Login = 'Невозможно авторизоваться на сайте',
   Quests = 'Невозможно загрузить список квестов',
 }
 
