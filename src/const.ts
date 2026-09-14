@@ -7,3 +7,12 @@ export enum AppRoute {
   NotFound = '*',
   Quest = '/quest/:id',
 }
+
+export enum PageTitle {
+  Booking = 'Бронирование квеста – Escape Room',
+  Contacts = 'Контакты – Escape Room',
+  Login = 'Авторизация – Escape Room',
+  Main = 'Главная – Escape Room',
+  MyQuests = 'Мои бронирования – Escape Room',
+  Quest = 'Квест – Escape Room',
+}
