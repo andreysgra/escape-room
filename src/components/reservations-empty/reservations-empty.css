@@ -1,0 +1,20 @@
+.reservations-empty {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.reservations-empty__wrap {
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 75px;
+}
+
+.reservations-empty__text {
+  text-align: center;
+}
+
+.reservations-empty__description {
+  font-size: 20px;
+  line-height: 26px;
+}

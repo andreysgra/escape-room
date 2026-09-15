@@ -28,13 +28,30 @@ export enum QuestLevel {
   Hard = 'hard',
 }
 
+export enum QuestType {
+  All = 'all-quests',
+  Adventures = 'adventures',
+  Horror ='horror',
+  Mystic = 'mystic',
+  Detective = 'detective',
+  SciFi = 'sci-fi',
+}
+
+export enum BookingDate {
+  Today = 'today',
+  Tomorrow = 'tomorrow',
+}
+
 export enum ErrorDescription {
+  CancelReservation = 'Невозможно отменить бронирование',
   Email = 'Введите валидный email',
   Login = 'Невозможно авторизоваться на сайте',
   Quests = 'Невозможно загрузить список квестов',
   Password = 'Пароль должен содержать минимум одну букву и одну цифру',
   PasswordMinLength = 'Минимальная длина 3 символа',
   PasswordMaxLength = 'Максимальная длина 15 символов',
+  Quest = 'Невозможно загрузить описание квеста',
+  Reservations = 'Невозможно загрузить список забронированных квестов',
 }
 
 export const QuestLevelName: Record<string, string> = {
@@ -44,7 +61,25 @@ export const QuestLevelName: Record<string, string> = {
   [QuestLevel.Hard]: 'Сложный',
 };
 
+export const QuestTypeName: Record<string, string> = {
+  [QuestType.Adventures]: 'Приключения',
+  [QuestType.All]: 'Все квесты',
+  [QuestType.Detective]: 'Детектив',
+  [QuestType.Horror]: 'Ужасы',
+  [QuestType.Mystic]: 'Мистика',
+  [QuestType.SciFi]: 'Sci-Fi',
+};
+
+export const BookingDateName: Record<string, string> = {
+  [BookingDate.Today]: 'Сегодня',
+  [BookingDate.Tomorrow]: 'Завтра',
+};
+
 export const ValidationPattern = {
   Email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   Password: /^(?=.*[a-zA-Z])(?=.*\d)(?=.+$)/,
 } as const;
+
+export const DESCRIPTION_MIN_LENGTH = 50;
+
+export const DESCRIPTION_MAX_LENGTH = 300;
