@@ -80,6 +80,21 @@ export const ValidationPattern = {
   Password: /^(?=.*[a-zA-Z])(?=.*\d)(?=.+$)/,
 } as const;
 
+export const MapIcon = {
+  UrlDefault: 'img/svg/pin-default.svg',
+  UrlCurrent: 'img/svg/pin-active.svg',
+  Size: [23, 42] as [number, number],
+  Anchor: [11.5, 42] as [number, number]
+} as const;
+
 export const DESCRIPTION_MIN_LENGTH = 50;
 
 export const DESCRIPTION_MAX_LENGTH = 300;
+
+export const ContactsLocation: [number, number] = [59.968322, 30.317359];
+
+export const TILE_LAYER_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+
+export const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+export const MAP_CONTACTS_ZOOM = 16;

@@ -1,4 +1,5 @@
 import ContactsList from '../../components/contacts-list/contacts-list';
+import MapContacts from '../../components/map-contacts/map-contacts';
 
 function ContactsPage() {
   return (
@@ -27,11 +28,7 @@ function ContactsPage() {
         </div>
         <div className="contacts">
           <ContactsList />
-          <div className="contacts__map">
-            <div className="map">
-              <div className="map__container"/>
-            </div>
-          </div>
+          <MapContacts />
         </div>
       </div>
     </main>
