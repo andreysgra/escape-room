@@ -1,7 +1,7 @@
 import {TQuest} from '../../types/quest';
 import QuestCard from '../quest-card/quest-card';
 import {useAppSelector} from '../../hooks/use-app-selector';
-import {getQuests, getQuestsLoadingStatus} from '../../store/quests/selectors';
+import {getFilteredQuests, getQuestsLoadingStatus} from '../../store/quests/selectors';
 import Loader from '../loader/loader';
 import ErrorMessage from '../error-message/error-message';
 import {ErrorDescription} from '../../const';
@@ -10,7 +10,7 @@ import {fetchQuests} from '../../store/quests/api-actions';
 import {RequestStatus} from '../../services/api/const';
 
 function QuestsCatalog() {
-  const quests = useAppSelector(getQuests);
+  const quests = useAppSelector(getFilteredQuests);
   const isQuestsLoading = useAppSelector(getQuestsLoadingStatus) === RequestStatus.Pending;
   const isQuestsFailed = useAppSelector(getQuestsLoadingStatus) === RequestStatus.Error;
 
