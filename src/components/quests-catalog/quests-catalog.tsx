@@ -8,11 +8,13 @@ import {ErrorDescription} from '../../const';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {fetchQuests} from '../../store/quests/api-actions';
 import {RequestStatus} from '../../services/api/const';
+import QuestsListEmpty from '../quests-list-empty/quests-list-empty';
 
 function QuestsCatalog() {
   const quests = useAppSelector(getFilteredQuests);
   const isQuestsLoading = useAppSelector(getQuestsLoadingStatus) === RequestStatus.Pending;
   const isQuestsFailed = useAppSelector(getQuestsLoadingStatus) === RequestStatus.Error;
+  const isQuestsSuccess = useAppSelector(getQuestsLoadingStatus) === RequestStatus.Success;
 
   const dispatch = useAppDispatch();
 
@@ -26,6 +28,10 @@ function QuestsCatalog() {
 
   if (isQuestsFailed) {
     return <ErrorMessage description={ErrorDescription.Quests} onButtonClick={handleButtonErrorClick} />;
+  }
+
+  if (quests.length === 0 && isQuestsSuccess) {
+    return <QuestsListEmpty />;
   }
 
   return (
