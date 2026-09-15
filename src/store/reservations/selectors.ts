@@ -7,3 +7,6 @@ export const getReservations = (state: State) => state[storeSlice].reservations;
 
 export const getReservationsLoadingStatus = (state: State) =>
   state[storeSlice].loadingStatus;
+
+export const getReservationCancelingStatus = (state: State) =>
+  state[storeSlice].cancelingStatus;
