@@ -9,11 +9,13 @@ import {ErrorDescription} from '../../const';
 import ErrorMessage from '../error-message/error-message';
 import {useEffect} from 'react';
 import {RequestStatus} from '../../services/api/const';
+import ReservationsEmpty from '../reservations-empty/reservations-empty';
 
 function ReservationsList() {
   const reservations = useAppSelector(getReservations);
   const isReservationsLoading = useAppSelector(getReservationsLoadingStatus) === RequestStatus.Pending;
   const isReservationsFailed = useAppSelector(getReservationsLoadingStatus) === RequestStatus.Error;
+  const isReservationsSuccess = useAppSelector(getReservationsLoadingStatus) === RequestStatus.Success;
 
   const dispatch = useAppDispatch();
 
@@ -31,6 +33,10 @@ function ReservationsList() {
 
   if (isReservationsFailed) {
     return <ErrorMessage description={ErrorDescription.Reservations} onButtonClick={handleButtonErrorClick} />;
+  }
+
+  if (reservations.length === 0 && isReservationsSuccess) {
+    return <ReservationsEmpty />;
   }
 
   return (
