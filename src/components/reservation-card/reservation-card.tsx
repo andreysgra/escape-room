@@ -1,6 +1,15 @@
 import {TReservation} from '../../types/reservation';
-import {AppRoute, BookingDateName, QuestLevelName, RouteParam} from '../../const';
+import {AppRoute, BookingDateName, ErrorDescription, QuestLevelName, RouteParam} from '../../const';
 import {Link} from 'react-router-dom';
+import {useAppDispatch} from '../../hooks/use-app-dispatch';
+import {useEffect, useState} from 'react';
+import {useAppSelector} from '../../hooks/use-app-selector';
+import {toast} from 'react-toastify';
+import {RequestStatus} from '../../services/api/const';
+import {setCancelingStatus} from '../../store/reservations/slice';
+import {cancelReservation} from '../../store/reservations/api-actions';
+import {getReservationCancelingStatus} from '../../store/reservations/selectors';
+import CancelButton from '../cancel-button/cancel-button';
 
 type ReservationCardProps = {
   reservation: TReservation;
@@ -8,6 +17,7 @@ type ReservationCardProps = {
 
 function ReservationCard({reservation}: ReservationCardProps) {
   const {
+    id,
     date,
     time,
     peopleCount,
@@ -26,6 +36,35 @@ function ReservationCard({reservation}: ReservationCardProps) {
   const {address} = location;
 
   const link = AppRoute.Quest.replace(RouteParam.Id, questId);
+
+  const dispatch = useAppDispatch();
+
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
+  const [buttonId, setButtonId] = useState<string>('');
+  const isCancelPending = useAppSelector(getReservationCancelingStatus) === RequestStatus.Pending;
+  const isCancelFailed = useAppSelector(getReservationCancelingStatus) === RequestStatus.Error;
+
+  useEffect(() => {
+    if (buttonId === id) {
+      setButtonDisabled(isCancelPending);
+    }
+
+    if (!isCancelPending) {
+      setButtonId('');
+    }
+  }, [isCancelPending, id, buttonId]);
+
+  const handleButtonClick = () => {
+    dispatch(cancelReservation(id));
+    setButtonId(id);
+  };
+
+  if (isCancelFailed) {
+    toast.dismiss();
+    toast.error(ErrorDescription.CancelReservation);
+
+    dispatch(setCancelingStatus(RequestStatus.Idle));
+  }
 
   return (
     <div className="quest-card">
@@ -58,9 +97,7 @@ function ReservationCard({reservation}: ReservationCardProps) {
             {QuestLevelName[level]}
           </li>
         </ul>
-        <button className="btn btn--accent btn--secondary quest-card__btn" type="button">
-          Отменить
-        </button>
+        <CancelButton disabled={buttonDisabled} onClick={handleButtonClick} />
       </div>
     </div>
   );

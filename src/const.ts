@@ -43,6 +43,7 @@ export enum BookingDate {
 }
 
 export enum ErrorDescription {
+  CancelReservation = 'Невозможно отменить бронирование',
   Email = 'Введите валидный email',
   Login = 'Невозможно авторизоваться на сайте',
   Quests = 'Невозможно загрузить список квестов',
