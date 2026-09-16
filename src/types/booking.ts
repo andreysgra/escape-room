@@ -18,3 +18,11 @@ export type TBookingQuest = {
   peopleCount: number;
   placeId: string;
 }
+
+export type TBookingFormFields = {
+  date: string;
+  name: string;
+  tel: string;
+  person: number;
+  children: boolean;
+}

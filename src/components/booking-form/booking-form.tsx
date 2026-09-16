@@ -2,21 +2,35 @@ import {ErrorDescription, ValidationPattern} from '../../const';
 import BookingSlotsList from '../../components/booking-slots-list/booking-slots-list';
 import {TSlots} from '../../types/slot';
 import {useAppSelector} from '../../hooks/use-app-selector';
-import {getCurrentBooking} from '../../store/booking/selectors';
-import {useForm} from 'react-hook-form';
+import {getBookingStatus, getCurrentBooking} from '../../store/booking/selectors';
+import {FieldValues, SubmitHandler, useForm} from 'react-hook-form';
 import FieldErrorMessage from '../field-error-message/field-error-message';
 import {getQuest} from '../../store/quest/selectors';
 import {TQuestDetailed} from '../../types/quest';
 import {useEffect} from 'react';
+import {useParams} from 'react-router-dom';
+import {RequestStatus} from '../../services/api/const';
+import {useAppDispatch} from '../../hooks/use-app-dispatch';
+import {TBookingFormFields, TBookingQuest} from '../../types/booking';
+import {splitBookingDateValue} from '../../utils/utils';
+import {addBooking} from '../../store/booking/api-actions';
+import {toast} from 'react-toastify';
+import {setBookingStatus} from '../../store/booking/slice';
 
 function BookingForm() {
+  const id = useParams().id as string;
   const currentBooking = useAppSelector(getCurrentBooking);
   const quest = useAppSelector(getQuest);
+  const isBookingPending = useAppSelector(getBookingStatus) === RequestStatus.Pending;
+  const isBookingFailed = useAppSelector(getBookingStatus) === RequestStatus.Error;
+
+  const dispatch = useAppDispatch();
 
   const {peopleMinMax: [peopleMin, peopleMax]} = quest as TQuestDetailed;
 
   const {
     register,
+    handleSubmit,
     resetField,
     formState: {
       errors,
@@ -28,11 +42,35 @@ function BookingForm() {
     resetField('date');
   }, [resetField, currentBooking]);
 
+  const handleFormSubmit: SubmitHandler<FieldValues> = (data) => {
+    const {date, name, tel, person, children} = data as TBookingFormFields;
+
+    const bookingData: TBookingQuest = {
+      date: splitBookingDateValue(date).date,
+      time: splitBookingDateValue(date).time,
+      contactPerson: name,
+      phone: tel,
+      withChildren: children,
+      peopleCount: Number(person),
+      placeId: currentBooking?.id as string,
+    };
+
+    dispatch(addBooking({bookingData, id}));
+  };
+
+  if (isBookingFailed) {
+    toast.dismiss();
+    toast.error(ErrorDescription.BookingQuest);
+
+    dispatch(setBookingStatus(RequestStatus.Idle));
+  }
+
   return (
     <form
       className="booking-form"
       action="#"
       method="post"
+      onSubmit={(evt) => void handleSubmit(handleFormSubmit)(evt)}
     >
       <BookingSlotsList slots={currentBooking?.slots as TSlots} register={register} />
       <fieldset className="booking-form__section">
@@ -130,7 +168,7 @@ function BookingForm() {
       <button
         className="btn btn--accent btn--cta booking-form__submit"
         type="submit"
-        disabled={!isValid}
+        disabled={isBookingPending || !isValid}
       >
         Забронировать
       </button>
