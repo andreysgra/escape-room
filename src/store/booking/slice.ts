@@ -2,13 +2,16 @@ import {TBookingState} from './type';
 import {RequestStatus} from '../../services/api/const';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {StoreSlice} from '../const';
-import {fetchBookings} from './api-actions';
+import {addBooking, fetchBookings} from './api-actions';
 import {TBooking, TBookings} from '../../types/booking';
+import {TReservation} from '../../types/reservation';
 
 const initialState: TBookingState = {
   bookings: [],
+  booking: null,
   currentBooking: null,
   loadingStatus: RequestStatus.Idle,
+  bookingStatus: RequestStatus.Idle,
 };
 
 const bookingSlice = createSlice({
@@ -17,6 +20,9 @@ const bookingSlice = createSlice({
   reducers: {
     setCurrentBooking: (state, action: PayloadAction<TBooking | null>) => {
       state.currentBooking = action.payload;
+    },
+    setBookingStatus: (state, action: PayloadAction<RequestStatus>) => {
+      state.bookingStatus = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -33,10 +39,21 @@ const bookingSlice = createSlice({
         state.bookings = [];
         state.currentBooking = null;
         state.loadingStatus = RequestStatus.Error;
+      })
+      .addCase(addBooking.fulfilled, (state, action: PayloadAction<TReservation>) => {
+        state.booking = action.payload;
+        state.bookingStatus = RequestStatus.Success;
+      })
+      .addCase(addBooking.pending, (state) => {
+        state.bookingStatus = RequestStatus.Pending;
+      })
+      .addCase(addBooking.rejected, (state) => {
+        state.booking = null;
+        state.bookingStatus = RequestStatus.Error;
       });
   }
 });
 
-export const {setCurrentBooking} = bookingSlice.actions;
+export const {setCurrentBooking, setBookingStatus} = bookingSlice.actions;
 
 export default bookingSlice;

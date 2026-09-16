@@ -9,3 +9,5 @@ export const getBookingsLoadingStatus = (state: State) =>
   state[storeSlice].loadingStatus;
 
 export const getCurrentBooking = (state: State) => state[storeSlice].currentBooking;
+
+export const getBookingStatus = (state: State) => state[storeSlice].bookingStatus;
