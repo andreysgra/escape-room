@@ -11,6 +11,7 @@ import Loader from '../../components/loader/loader';
 import ErrorMessage from '../../components/error-message/error-message';
 import {ErrorDescription} from '../../const';
 import {TQuestDetailed} from '../../types/quest';
+import MapBooking from '../../components/map-booking/map-booking';
 
 function BookingPage() {
   const id = useParams().id as string;
@@ -65,15 +66,7 @@ function BookingPage() {
           <p className="title title--size-m title--uppercase page-content__title">{title}</p>
         </div>
         <div className="page-content__item">
-          <div className="booking-map">
-            <div className="map">
-              <div className="map__container"/>
-            </div>
-            <p className="booking-map__address">
-              Вы&nbsp;выбрали: наб. реки Карповки&nbsp;5, лит&nbsp;П, м.
-              Петроградская
-            </p>
-          </div>
+          <MapBooking />
         </div>
         <form
           className="booking-form"

@@ -99,3 +99,5 @@ export const TILE_LAYER_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.pn
 export const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 export const MAP_CONTACTS_ZOOM = 16;
+
+export const MAP_BOOKING_ZOOM = 10;
