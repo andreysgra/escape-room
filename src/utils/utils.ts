@@ -26,3 +26,12 @@ export const getQuestTypeIconWidth = (type: QuestType): number => {
       return 30;
   }
 };
+
+export const splitBookingDateValue = (value: string) => {
+  const [date, time] = value.split(',');
+
+  return {
+    date,
+    time,
+  };
+};

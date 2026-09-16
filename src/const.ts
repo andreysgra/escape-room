@@ -43,13 +43,20 @@ export enum BookingDate {
 }
 
 export enum ErrorDescription {
+  Booking = 'Невозможно загрузить информацию о бронировании квеста',
+  BookingQuest = 'Невозможно забронировать квест',
   CancelReservation = 'Невозможно отменить бронирование',
   Email = 'Введите валидный email',
   Login = 'Невозможно авторизоваться на сайте',
+  Name = 'Введите корректное имя',
+  NameMinLength = 'Минимальная длина имени 1 символ',
+  NameMaxLength = 'Максимальная длина имени 15 символов',
   Quests = 'Невозможно загрузить список квестов',
   Password = 'Пароль должен содержать минимум одну букву и одну цифру',
   PasswordMinLength = 'Минимальная длина 3 символа',
   PasswordMaxLength = 'Максимальная длина 15 символов',
+  PeopleMinMax = 'Количество участников:',
+  PhoneNumber = 'Номер телефона должен быть в формате +7 (900) 000-00-00',
   Quest = 'Невозможно загрузить описание квеста',
   Reservations = 'Невозможно загрузить список забронированных квестов',
 }
@@ -77,7 +84,9 @@ export const BookingDateName: Record<string, string> = {
 
 export const ValidationPattern = {
   Email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  Name: /^[А-Яа-яЁёA-Za-z -']{1,15}$/,
   Password: /^(?=.*[a-zA-Z])(?=.*\d)(?=.+$)/,
+  PhoneNumber: /^(\+7)(\(9\d{2}\))(\d{3}-)(\d{2}-)(\d{2})$/,
 } as const;
 
 export const MapIcon = {
@@ -98,3 +107,5 @@ export const TILE_LAYER_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.pn
 export const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 export const MAP_CONTACTS_ZOOM = 16;
+
+export const MAP_BOOKING_ZOOM = 10;
