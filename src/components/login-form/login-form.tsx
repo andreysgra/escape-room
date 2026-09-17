@@ -12,10 +12,9 @@ import {setLoginStatus} from '../../store/user/slice';
 
 function LoginForm() {
   const dispatch = useAppDispatch();
-  const loginStatus = useAppSelector(getLoginStatus);
 
-  const isLoginPending = loginStatus === RequestStatus.Pending;
-  const isLoginFailed = loginStatus === RequestStatus.Error;
+  const isLoginPending = useAppSelector(getLoginStatus) === RequestStatus.Pending;
+  const isLoginFailed = useAppSelector(getLoginStatus) === RequestStatus.Error;
 
   const {
     register,

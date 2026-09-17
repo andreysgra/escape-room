@@ -1,12 +1,12 @@
-import {DESCRIPTION_MAX_LENGTH, DESCRIPTION_MIN_LENGTH, QuestType} from '../const';
+import {QuestDescriptionLength, QuestType} from '../const';
 
 export const getQuestDescription = (description: string) => {
-  if (description.length < DESCRIPTION_MIN_LENGTH) {
-    return description.padEnd(DESCRIPTION_MIN_LENGTH);
+  if (description.length < QuestDescriptionLength.Min) {
+    return description.padEnd(QuestDescriptionLength.Min);
   }
 
-  if (description.length > DESCRIPTION_MAX_LENGTH) {
-    return description.slice(0, DESCRIPTION_MAX_LENGTH);
+  if (description.length > QuestDescriptionLength.Max) {
+    return `${description.slice(0, QuestDescriptionLength.Max)}...`;
   }
 
   return description;
