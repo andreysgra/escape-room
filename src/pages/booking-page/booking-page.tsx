@@ -33,6 +33,11 @@ function BookingPage() {
     }
   }, [dispatch, id]);
 
+  const handleButtonErrorClick = () => {
+    dispatch(fetchBookings(id));
+    dispatch(fetchQuest(id));
+  };
+
   if (!isBookingFailed && !isQuestFailed) {
     if (bookings.length === 0 || !quest) {
       return null;
@@ -44,7 +49,7 @@ function BookingPage() {
   }
 
   if (isBookingFailed || isQuestFailed) {
-    return <ErrorMessage description={ErrorDescription.Booking} />;
+    return <ErrorMessage description={ErrorDescription.Booking} onButtonClick={handleButtonErrorClick} />;
   }
 
   const {

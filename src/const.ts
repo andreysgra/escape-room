@@ -51,13 +51,13 @@ export enum ErrorDescription {
   Name = 'Введите корректное имя',
   NameMinLength = 'Минимальная длина имени 1 символ',
   NameMaxLength = 'Максимальная длина имени 15 символов',
-  Quests = 'Невозможно загрузить список квестов',
   Password = 'Пароль должен содержать минимум одну букву и одну цифру',
   PasswordMinLength = 'Минимальная длина 3 символа',
   PasswordMaxLength = 'Максимальная длина 15 символов',
   PeopleMinMax = 'Количество участников:',
   PhoneNumber = 'Номер телефона должен быть в формате +7 (900) 000-00-00',
   Quest = 'Невозможно загрузить описание квеста',
+  Quests = 'Невозможно загрузить список квестов',
   Reservations = 'Невозможно загрузить список забронированных квестов',
 }
 
@@ -93,12 +93,13 @@ export const MapIcon = {
   UrlDefault: 'img/svg/pin-default.svg',
   UrlCurrent: 'img/svg/pin-active.svg',
   Size: [23, 42] as [number, number],
-  Anchor: [11.5, 42] as [number, number]
+  Anchor: [11.5, 42] as [number, number],
 } as const;
 
-export const DESCRIPTION_MIN_LENGTH = 50;
-
-export const DESCRIPTION_MAX_LENGTH = 300;
+export const QuestDescriptionLength = {
+  Min: 50,
+  Max: 300,
+} as const;
 
 export const ContactsLocation: [number, number] = [59.968322, 30.317359];
 

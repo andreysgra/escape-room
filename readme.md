@@ -2,7 +2,11 @@
 
 «Escape Room» — это сайт компании, которая занимается проведением игровых квестов разной тематики и уровней сложности.
 
+![Постер сайта](markup/img/poster.jpg)
+
 Программирование: [Андрей Грачев](https://github.com/andreysgra/)
+
+[Демо проекта](https://escape-room-quest.vercel.app)
 
 [Техническое задание](Specification.md)
 
