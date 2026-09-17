@@ -10,6 +10,7 @@ function UserNavigation() {
   const isLoginPage = useLocation().pathname === AppRoute.Login as string;
   const isAuthorized = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
   const user = useAppSelector(getUser);
+  const currentPage = useLocation().pathname;
 
   const dispatch = useAppDispatch();
 
@@ -25,7 +26,7 @@ function UserNavigation() {
         <Link
           className="btn btn--accent header__side-item"
           title={user?.email}
-          to={AppRoute.Main}
+          to={currentPage}
           onClick={handleLogoutClick}
         >
           Выйти
