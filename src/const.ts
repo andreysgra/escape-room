@@ -101,12 +101,13 @@ export const QuestDescriptionLength = {
   Max: 300,
 } as const;
 
+export const MapZoom = {
+  Booking: 10,
+  Contacts: 16,
+} as const;
+
 export const ContactsLocation: [number, number] = [59.968322, 30.317359];
 
 export const TILE_LAYER_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
 export const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-
-export const MAP_CONTACTS_ZOOM = 16;
-
-export const MAP_BOOKING_ZOOM = 10;
