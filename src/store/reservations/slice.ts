@@ -12,7 +12,7 @@ const initialState: TReservationsState = {
 };
 
 const reservationsSlice = createSlice({
-  name: StoreSlice.Quests,
+  name: StoreSlice.Reservations,
   initialState,
   reducers: {
     setCancelingStatus: (state, action: PayloadAction<RequestStatus>) => {

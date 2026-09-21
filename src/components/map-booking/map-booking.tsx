@@ -2,7 +2,7 @@ import {useAppSelector} from '../../hooks/use-app-selector';
 import {getBookings, getCurrentBooking} from '../../store/booking/selectors';
 import {TLocation} from '../../types/location';
 import {MapContainer, Marker, TileLayer, Tooltip} from 'react-leaflet';
-import {ATTRIBUTION, ContactsLocation, MAP_BOOKING_ZOOM, MapIcon, TILE_LAYER_URL} from '../../const';
+import {ATTRIBUTION, ContactsLocation, MapIcon, MapZoom, TILE_LAYER_URL} from '../../const';
 import {Icon} from 'leaflet';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {TBooking} from '../../types/booking';
@@ -35,7 +35,7 @@ function MapBooking() {
   return (
     <div className="booking-map">
       <div className="map">
-        <MapContainer className="map__container" center={ContactsLocation} zoom={MAP_BOOKING_ZOOM}>
+        <MapContainer className="map__container" center={ContactsLocation} zoom={MapZoom.Booking}>
           <TileLayer url={TILE_LAYER_URL} attribution={ATTRIBUTION} />
           {/* В некоторых случаях сервер генерирует одинаковые координаты места проведения квеста, что вызывает   */}
           {/* перекрытие активного маркера неактивным. Для обхода этой ситуации отображение маркеров производится */}

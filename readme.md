@@ -8,7 +8,7 @@
 
 [Демо проекта](https://escape-room-quest.vercel.app)
 
-[Техническое задание](Specification.md)
+[Техническое задание](specification.md)
 
 ## Используемый стек
 
