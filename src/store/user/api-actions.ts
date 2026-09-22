@@ -5,6 +5,7 @@ import {StoreSlice} from '../const';
 import {ApiRoute} from '../../services/api/api-route';
 import {dropToken, saveToken} from '../../services/token';
 import browserHistory from '../../services/browser-history';
+import {Action} from 'history';
 
 export const fetchUserStatus = createAsyncThunk<TUser, undefined, {extra: AxiosInstance}>(
   `${StoreSlice.User}/fetch`,
@@ -18,11 +19,15 @@ export const fetchUserStatus = createAsyncThunk<TUser, undefined, {extra: AxiosI
 export const loginUser = createAsyncThunk<TUser, TUserAuth, {extra: AxiosInstance}>(
   `${StoreSlice.User}/login`,
   async ({email, password}, {extra: api}) => {
+
     const {data} = await api.post<TUser>(ApiRoute.Login, {email, password});
     const {token} = data;
 
     saveToken(token);
-    browserHistory.back();
+
+    if (browserHistory.action !== Action.Pop) {
+      browserHistory.back();
+    }
 
     return data;
   }
